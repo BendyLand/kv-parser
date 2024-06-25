@@ -1,33 +1,10 @@
 import tests
 import utils
+import my_parser
 
 
 test = tests.generate_random_key_val_str()
-# test = """
-# {
-#         simple-key38: False,
-#         simple-key64: tHe QUiCk bRoWn fOX,
-#         simple-key30: c,
-#         complex-key55: (5.0, 4.0, 3.0, 2.0, 1.0)
-#         simple-key64: False,
-#         simple-key49: True,
-#         complex-key9: {
-#                 inner-key1: 1,
-#                 inner-key2: 2,
-#                 inner-key3: 3,
-#                 inner-key4: {
-# doesn't work yet     more-inner-key: 0,
-#                 },
-#                 inner-key5: 5,
-#                 inner-key6: 6,
-#                 inner-key7: 7
-#         },
-#         complex-key89: [1, 2, 3, 4, 5],
-#         simple-key48: 5,
-#         simple-key27: w,
 
-# }
-# """
 
 def initial_parse(text: str) -> dict:
     result = {}
@@ -42,7 +19,20 @@ def initial_parse(text: str) -> dict:
     return result
 
 
+def infer_types(init_parse: dict) -> dict:
+    result = {}
+    for k in init_parse:
+        result[k] = my_parser.parse_unknown_type(init_parse[k])
+    return result
+
+
+def display_dict(dict):
+    for k in dict:
+        print(f"{k} = {dict[k]} (Type: {type(dict[k])})")
+    print()
+
+
 print(test)
 result = initial_parse(test)
-for k in result:
-    print(f"{k} = {result[k]}")
+result = infer_types(result)
+display_dict(result)
