@@ -1,6 +1,5 @@
 import re
 
-
 def normalize(text: str) -> str:
     # Removes tabs.
     lines = text.split("\n")

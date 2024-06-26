@@ -46,3 +46,12 @@ for key in result:
 # "simple-key48": 5 
 # "simple-key27": "w"
 ```
+
+## Current Project Status
+
+ - Basic key-value parsing and type inference works on most types in the outermost layer.
+     - Dictionaries are currently represented as a single line string of the keys and values. 
+ - Nesting can only go one layer deep.
+     - Anything further will all be parsed inside of the current layer.
+ - The elements found inside of collection types (lists, dicts, tuples) currently don't get type inference like basic values themselves. 
+     - They're just represented as strings, and for some reason, from index 1 onward, each item has a space prepended to it. (I imagine that once I find and fix that bug, the type inference will happen soon after.) 
